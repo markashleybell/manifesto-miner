@@ -6,10 +6,21 @@
     </head>
     <body>
         <h1>{{ title }}</h1>
-        <div class="word-cloud">
-            {% for item in words %}
-            <span class="c-{{ item[1] }}">{{ item[0] }}</span>
-            {% endfor %}
-        </div>
+        <canvas id="wordcloud" width="900" height="600"></canvas>
+        <script src="wordcloud2.js"></script>
+        <script>
+            var list = [
+                {% for item in words %}
+                [ '{{ item[0] }}', {{ item[1] }} ],
+                {% endfor %}
+            ];
+            WordCloud(document.getElementById('wordcloud'), { 
+                list: list,
+                gridSize: 15,
+                minRotation: 0,
+                maxRotation: 0,
+                shape: 'circle'
+            });
+        </script>
     </body>
 </html>

@@ -11,8 +11,8 @@ def process_file(f):
 
     # Strip punctuation and numbers
     content = re.sub(r"[^a-z\s]+", '', content, 0, re.IGNORECASE)
-    # Remove line breaks/carriage returns
-    content = re.sub(r"[\r\n]+", '', content, 0, re.IGNORECASE)
+    # Replace line breaks/carriage returns with single spaces
+    content = re.sub(r"[\r\n]+", ' ', content, 0, re.IGNORECASE)
     # Replace multiple spaces with single spaces
     content = re.sub(r"\s+", ' ', content, 0, re.IGNORECASE)
 
@@ -37,30 +37,36 @@ def process_file(f):
                 wordcount[w] = 0 # Add it to the dictionary
             wordcount[w] += 1 # Increment the total occurrences
         
+    # Store items
+    items = wordcount.items()
+
     # Get a list of the items sorted by descending value (occurrences)
-    st = sorted(wordcount.items(), key=itemgetter(1), reverse=True)
+    sorted_items = sorted(items, key=itemgetter(1), reverse=True)
 
-    # Show everything with more than X occurrences
-    #debug = [s[0] + ': ' + str(s[1]) for s in st if s[1] > 20]
-    #for result in debug:
-    #    print result
+    # Options for output list
+    #output_items = [s for s in items if s[1] >= 25]
+    output_items = [s for s in sorted_items if s[1] >= 50]
+    #output_items = [s for s in items if s[1] >= 25]
+    #output_items = [s for s in items if s[1] >= 25]
 
+    # Get the file name of the source text file
     filename = os.path.split(f)[1]
+
     output_filename = re.sub(r"(?si)^(.*\.)(txt)$", r"\1html", filename)
-    output = template.render(title=output_filename, words=[s for s in st if s[1] > 5])
+    output = template.render(title=output_filename, words=output_items)
     # Write out the processed HTML file for this post
     o = codecs.open('output/' + output_filename, 'w', 'utf-8')
     o.write(output)
     o.close()
 
 
-
 # Load the output templates
 env = Environment(loader=FileSystemLoader('template/'))
 template = env.get_template('template.html')
 
-# Copy the CSS file to the output directory
+# Copy files to the output directory
 shutil.copyfile('template/styles.css', 'output/styles.css')
+shutil.copyfile('template/wordcloud2.js', 'output/wordcloud2.js')
 
 # Get the list of stop words from our text file
 file = open('stopwords.txt', 'r')
