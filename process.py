@@ -1,5 +1,6 @@
-import os, codecs, re, glob, fileinput
+import os, codecs, re, glob, fileinput, shutil
 from operator import itemgetter
+from jinja2 import Template, Environment, FileSystemLoader
 
 def process_file(f):
     # Get the source file
@@ -40,10 +41,26 @@ def process_file(f):
     st = sorted(wordcount.items(), key=itemgetter(1), reverse=True)
 
     # Show everything with more than X occurrences
-    results = [s[0] + ': ' + str(s[1]) for s in st if s[1] > 20]
+    #debug = [s[0] + ': ' + str(s[1]) for s in st if s[1] > 20]
+    #for result in debug:
+    #    print result
 
-    for result in results:
-        print result
+    filename = os.path.split(f)[1]
+    output_filename = re.sub(r"(?si)^(.*\.)(txt)$", r"\1html", filename)
+    output = template.render(title=output_filename, words=[s for s in st if s[1] > 5])
+    # Write out the processed HTML file for this post
+    o = codecs.open('output/' + output_filename, 'w', 'utf-8')
+    o.write(output)
+    o.close()
+
+
+
+# Load the output templates
+env = Environment(loader=FileSystemLoader('template/'))
+template = env.get_template('template.html')
+
+# Copy the CSS file to the output directory
+shutil.copyfile('template/styles.css', 'output/styles.css')
 
 # Get the list of stop words from our text file
 file = open('stopwords.txt', 'r')

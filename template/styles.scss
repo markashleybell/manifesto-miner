@@ -1,0 +1,64 @@
+$class-slug: c !default;
+
+@for $i from 1 through 9 {
+    .#{$class-slug}-#{$i} {
+        // font-size: 60px + $i
+        font-size: 14px;
+    }
+}
+
+@for $i from 10 through 19 {
+    .#{$class-slug}-#{$i} {
+        // font-size: 60px + $i
+        font-size: 18px;
+    }
+}
+
+@for $i from 20 through 29 {
+    .#{$class-slug}-#{$i} {
+        // font-size: 60px + $i
+        font-size: 22px;
+    }
+}
+
+@for $i from 30 through 39 {
+    .#{$class-slug}-#{$i} {
+        // font-size: 60px + $i
+        font-size: 26px;
+    }
+}
+
+@for $i from 40 through 49 {
+    .#{$class-slug}-#{$i} {
+        // font-size: 60px + $i
+        font-size: 30px;
+    }
+}
+
+@for $i from 50 through 74 {
+    .#{$class-slug}-#{$i} {
+        // font-size: 60px + $i
+        font-size: 36px;
+    }
+}
+
+@for $i from 75 through 99 {
+    .#{$class-slug}-#{$i} {
+        // font-size: 60px + $i
+        font-size: 40px;
+    }
+}
+
+@for $i from 100 through 199 {
+    .#{$class-slug}-#{$i} {
+        // font-size: 60px + $i
+        font-size: 50px;
+    }
+}
+
+@for $i from 200 through 500 {
+    .#{$class-slug}-#{$i} {
+        // font-size: 60px + $i
+        font-size: 70px;
+    }
+}
