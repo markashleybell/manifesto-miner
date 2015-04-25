@@ -45,7 +45,7 @@ def process_file(f):
 
     # Options for output list
     #output_items = [s for s in items if s[1] >= 25]
-    output_items = [s for s in sorted_items if s[1] >= 50]
+    output_items = [s for s in sorted_items if s[1] >= 2] #[:20]
     #output_items = [s for s in items if s[1] >= 25]
     #output_items = [s for s in items if s[1] >= 25]
 
@@ -53,7 +53,8 @@ def process_file(f):
     filename = os.path.split(f)[1]
 
     output_filename = re.sub(r"(?si)^(.*\.)(txt)$", r"\1html", filename)
-    output = template.render(title=output_filename, words=output_items)
+    output_heading = re.sub(r"(?si)^(.*)(.txt)$", r"\1", filename)
+    output = template.render(title=output_heading, words=output_items)
     # Write out the processed HTML file for this post
     o = codecs.open('output/' + output_filename, 'w', 'utf-8')
     o.write(output)

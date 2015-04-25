@@ -6,7 +6,7 @@
     </head>
     <body>
         <h1>{{ title }}</h1>
-        <canvas id="wordcloud" width="900" height="600"></canvas>
+        <canvas id="wordcloud" width="2048" height="1536"></canvas>
         <script src="wordcloud2.js"></script>
         <script>
             var list = [
@@ -16,10 +16,14 @@
             ];
             WordCloud(document.getElementById('wordcloud'), { 
                 list: list,
-                gridSize: 15,
+                fontFamily: 'Arial',
+                fontWeight: 'bold',
+                gridSize: 20,
                 minRotation: 0,
                 maxRotation: 0,
-                shape: 'circle'
+                shape: 'circle',
+                color: '#000',
+                minSize: 11
             });
         </script>
     </body>
