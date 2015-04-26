@@ -3,7 +3,7 @@ from operator import itemgetter
 from jinja2 import Template, Environment, FileSystemLoader
 
 def process_file(f):
-    # Get the source file
+    # Get the source text file
     source = codecs.open(f, 'r', 'utf-8')
 
     # Read the text from the source file
@@ -30,6 +30,8 @@ def process_file(f):
     # Dictionary: word as key, occurrences as value
     wordcount = {}
 
+    # Loop through all the words and create a dictionary where the keys
+    # are words and the values are the number of occurrences
     for word in words:
         w = word.lower()
         if w not in stopwords: # If it's a stop word, ignore it
@@ -54,7 +56,10 @@ def process_file(f):
 
     output_filename = re.sub(r"(?si)^(.*\.)(txt)$", r"\1html", filename)
     output_heading = re.sub(r"(?si)^(.*)(.txt)$", r"\1", filename)
+
+    # Render a Jinja2 template to create output HTML
     output = template.render(title=output_heading, words=output_items)
+
     # Write out the processed HTML file for this post
     o = codecs.open('output/' + output_filename, 'w', 'utf-8')
     o.write(output)
@@ -70,12 +75,13 @@ shutil.copyfile('template/styles.css', 'output/styles.css')
 shutil.copyfile('template/wordcloud2.js', 'output/wordcloud2.js')
 
 # Get the list of stop words from our text file
-file = open('stopwords.txt', 'r')
+stopwordlist = open('stopwords.txt', 'r')
 # Remember to strip the newline characters so they match our words
-stopwords = [str(line).rstrip() for line in file]
+stopwords = [str(line).rstrip() for line in stopwordlist]
 
 # Get all the text files
 text_files = [f for f in glob.glob('text/*.txt')]
 
+# Process the files
 for f in text_files:
     process_file(f)
