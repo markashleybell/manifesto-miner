@@ -1,0 +1,1 @@
+Mining the 2015 UK General Election manifestos to create word frequency illustrations. See [this blog post](http://markb.co.uk/election-2015-manifesto-mining.html) for details. 
