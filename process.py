@@ -1,6 +1,6 @@
-import os, codecs, re, glob, fileinput, shutil
+import os, codecs, re, glob, shutil
 from operator import itemgetter
-from jinja2 import Template, Environment, FileSystemLoader
+from jinja2 import Environment, FileSystemLoader
 
 def process_file(f):
     # Get the source text file
