@@ -13,3 +13,13 @@ python -m pip install --upgrade pip
 
 pip install -r .\requirements.txt
 ```
+
+## Development server
+
+PowerShell:
+
+```
+.\env-setup.ps1
+
+flask run
+```
